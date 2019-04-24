@@ -59,3 +59,97 @@ sub _parse {
 }
 
 1;
+
+=encoding utf8
+
+=head1 NAME
+
+RaptoDo::Model::TodoTxt::Item - Model for todo.txt items
+
+=head1 SYNOPSIS
+
+  use RaptoDo::Model::TodoTxt::Item;
+
+  my $item = RaptoDo::Model::TodoTxt::Item->new('x 2019-04-02 feed the raptor');
+  say $item->completed;
+  say $item->completion;
+  say $item->text;
+
+=head1 DESCRIPTION
+
+L<RaptoDo::Model::TodoTxt::Item> is a model for todo.txt strings, which
+provides a simple API for query and modification.
+
+=head1 ATTRIBUTES
+
+L<RaptoDo::Model::TodoTxt::Item> implements the following attributes.
+
+=head2 completed
+
+  my $bool = $item->completed;
+  $item    = $item->completed(1);
+
+Completion state of the item, defaults to 0.
+
+=head2 completion
+
+  my $date = $item->completion;
+  $item    = $item->completion('2019-04-02');
+
+Completion date of the item, defaults to an empty string.
+
+=head2 creation
+
+  my $date = $item->creation;
+  $item    = $item->creation('2019-04-01');
+
+Creation date of the item, defaults to an empty string.
+
+=head2 priority
+
+  my $priority = $item->priority;
+  $item        = $item->priority('A');
+
+Priority of the item, defaults to an empty string.
+
+=head2 text
+
+  my $text = $item->text;
+  $item    = $item->text('feed the raptor');
+
+Text of the item, defaults to an empty string.
+
+=head1 METHODS
+
+L<RaptoDo::Model::TodoTxt::Item> inherits all methods from L<Mojo::Base>
+and implements the following new ones.
+
+=head2 new
+
+  my $item = RaptoDo::Model::TodoTxt::Item->new;
+  my $item = RaptoDo::Model::TodoTxt::Item->new('x feed the raptor');
+
+Construct a new L<RaptoDo::Model::TodoTxt::Item> object and parse the string
+if necessary.
+
+=head2 to_string
+
+  my $str = $item->to_string;
+
+Stringify the item.
+
+=head1 OPERATORS
+
+L<RaptoDo::Model::TodoTxt::Item> overloads the following operators.
+
+=head2 stringify
+
+  my $str = "$item";
+
+Alias for L</"to_string">.
+
+=head1 SEE ALSO
+
+L<RaptoDo>, L<Mojolicious>, L<https://mojolicious.org>.
+
+=cut
