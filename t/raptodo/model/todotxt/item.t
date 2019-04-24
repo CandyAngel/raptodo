@@ -16,4 +16,17 @@ is $item,           $string,                'right result';
 is $item->priority, 'A',                    'right priority';
 is $item->text,     'entry with priority',  'right text';
 
+$string = '2019-04-01 entry with creation';
+$item = $class->new($string);
+is $item,           $string,                'right result';
+is $item->creation, '2019-04-01',           'right creation';
+is $item->text,     'entry with creation',  'right text';
+
+$string = '(A) 2019-04-01 entry with priority and creation';
+$item = $class->new($string);
+is $item,           $string,                            'right result';
+is $item->priority, 'A',                                'right priority';
+is $item->creation, '2019-04-01',                       'right creation';
+is $item->text,     'entry with priority and creation', 'right text';
+
 done_testing();
