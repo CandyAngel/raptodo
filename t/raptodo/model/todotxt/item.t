@@ -35,4 +35,19 @@ is $item,             $string,          'right result';
 is $item->completed,  1,                'right completed';
 is $item->text,       'complete entry', 'right text';
 
+$string = 'x 2019-04-02 complete entry with completion';
+$item = $class->new($string);
+is $item,             $string,                          'right result';
+is $item->completed,  1,                                'right completed';
+is $item->completion, '2019-04-02',                     'right completion';
+is $item->text,       'complete entry with completion', 'right text';
+
+$string = 'x 2019-04-02 2019-04-01 complete entry with completion and creation';
+$item = $class->new($string);
+is $item,             $string,      'right result';
+is $item->creation,   '2019-04-01', 'right creation';
+is $item->completed,  1,            'right completed';
+is $item->completion, '2019-04-02', 'right completion';
+is $item->text,       'complete entry with completion and creation', 'right result';
+
 done_testing();
