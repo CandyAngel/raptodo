@@ -6,6 +6,8 @@ use overload (
   fallback => 1,
 );
 
+has completed => 0;
+
 has [qw(creation priority text)] => '';
 
 sub new {
@@ -18,7 +20,9 @@ sub to_string {
   my $self = shift;
 
   my @tokens;
-  push @tokens, sprintf('(%s)', $self->priority) if $self->priority;
+  push @tokens, 'x' if $self->completed;
+  push @tokens, sprintf('(%s)', $self->priority)
+    if $self->priority and !$self->completed;
   push @tokens, $self->creation if $self->creation;
 
   return join ' ', @tokens, $self->text;
@@ -36,6 +40,9 @@ sub _parse {
   }
   elsif ($string =~ s/\A \(([A-Z])\) \s//msx) {
     $self->priority($1);
+  }
+  elsif ($string =~ s/\A x \s//msx) {
+    $self->completed(1);
   }
 
   return $self->text($string);

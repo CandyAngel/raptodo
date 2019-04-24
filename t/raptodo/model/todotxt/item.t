@@ -29,4 +29,10 @@ is $item->priority, 'A',                                'right priority';
 is $item->creation, '2019-04-01',                       'right creation';
 is $item->text,     'entry with priority and creation', 'right text';
 
+$string = 'x complete entry';
+$item = $class->new($string);
+is $item,             $string,          'right result';
+is $item->completed,  1,                'right completed';
+is $item->text,       'complete entry', 'right text';
+
 done_testing();
