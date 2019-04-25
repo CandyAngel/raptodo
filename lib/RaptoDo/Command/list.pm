@@ -1,15 +1,36 @@
 package RaptoDo::Command::list;
 use Mojo::Base 'Mojolicious::Command';
 
+use Mojo::Util qw(getopt tablify);
+
 has description => 'List tasks';
 
 has usage => sub { shift->extract_usage };
 
 sub run {
-  my $self = shift;
+  my ($self, @args) = @_;
+
+  getopt(\@args,
+    'format=s'  => \(my $format = 'todotxt'),
+  );
 
   my $tasks = $self->app->todotxt->items;
-  $tasks->each(sub { say $_ });
+
+  if ($format eq 'todotxt') {
+    $tasks->each(sub { say $_ });
+  }
+  elsif ($format eq 'tablify') {
+    $tasks = $tasks->map(sub {[
+      ($_[0]->completed ? 'x' : ''),
+      map { $_[0]->$_ } qw(priority creation completion text)
+    ]});
+    unshift @{$tasks}, ['', qw(pri creation completion text)];
+    say tablify $tasks;
+  }
+  else {
+    die 'Unknown format: ' . $format . "\n";
+  }
+
 }
 
 1;
@@ -25,9 +46,12 @@ RaptoDo::Command::list - List command
   Usage: APPLICATION list
 
     ./myapp.pl list
+    ./myapp.pl list --format tablify
 
   Options:
-      -h, --help  Show this summary of available options
+      -h, --help              Show this summary of available options
+          --format <format>   Output format of the tasks. Can be 'todotxt' or
+                              'tablify', defaults to 'todotxt'
 
 =head1 DESCRIPTION
 
