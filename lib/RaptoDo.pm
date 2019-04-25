@@ -1,6 +1,8 @@
 package RaptoDo;
 use Mojo::Base 'Mojolicious';
 
+use RaptoDo::Model::TodoTxt;
+
 # This method will run once at server start
 sub startup {
   my $self = shift;
@@ -16,6 +18,8 @@ sub startup {
 
   # Normal route to controller
   $r->get('/')->to('example#welcome');
+
+  $self->helper(todotxt => sub { RaptoDo::Model::TodoTxt->new });
 }
 
 1;
