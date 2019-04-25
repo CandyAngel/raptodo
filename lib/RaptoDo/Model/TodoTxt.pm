@@ -59,8 +59,8 @@ implements the following new ones.
 
   my $collection = $model->items;
 
-Reads the files and returns a L<Mojo::Collection> object containing the items
-as L<RaptoDo::Model::TodoTxt::Item> objects.
+Reads the file at L</"path"> and returns a L<Mojo::Collection> object
+containing the items as L<RaptoDo::Model::TodoTxt::Item> objects.
 
 =head1 SEE ALSO
 
