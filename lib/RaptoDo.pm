@@ -20,6 +20,8 @@ sub startup {
   $r->get('/')->to('example#welcome');
 
   $self->helper(todotxt => sub { RaptoDo::Model::TodoTxt->new });
+
+  push @{$self->commands->namespaces}, 'RaptoDo::Command';
 }
 
 1;
